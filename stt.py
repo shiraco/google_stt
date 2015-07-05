@@ -1,3 +1,5 @@
+# coding:utf-8
+
 import sys
 import os
 import json
@@ -26,7 +28,7 @@ def stt_google_wav(filename):
             continue
         obj = json.loads(unit)
         alternatives = obj["result"]
-    
+
         if len(alternatives) > 0:
             breakflag = False
             for obj in alternatives:
