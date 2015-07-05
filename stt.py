@@ -6,7 +6,10 @@ import json
 import requests
 import urllib
 
-apikey = ""
+from future.standard_library import install_aliases
+install_aliases()
+
+apikey = os.environ.get("GOOGLE_API_KEY")
 TIMEOUT = 30
 
 def stt_google_wav(filename):
