@@ -1,5 +1,4 @@
 # google_stt
-----
 
 Google speech to text sample
 
