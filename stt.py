@@ -6,23 +6,24 @@ import json
 import requests
 import urllib
 
-from future.standard_library import install_aliases
-install_aliases()
-
 apikey = os.environ.get("GOOGLE_API_KEY")
 TIMEOUT = 30
 
 def stt_google_wav(filename):
     q = {"output": "json", "lang": "ja-JP", "key": apikey}
-    GOOGLE_SPEECH_URL = 'http://www.google.com/speech-api/v2/recognize?{}'.format(urllib.parse.urlencode(q))
-    data = open(filename, 'rb').read()
+
+    url = "http://www.google.com/speech-api/v2/recognize?%s" % (urllib.urlencode(q))
+
     headers = {"Content-Type": "audio/l16; rate=16000"}
+    data = open(filename, "rb").read()
+
     response = requests.post(
-        GOOGLE_SPEECH_URL,
-        data=data,
+        url,
         headers=headers,
+        data=data,
         timeout=TIMEOUT
     )
+
     jsonunits = response.text.split(os.linesep)
     res = ""
 
@@ -40,8 +41,10 @@ def stt_google_wav(filename):
                     res = result["transcript"]
                     breakflag = True
                     break
+
                 if breakflag:
                     break
+
     return res
 
 if __name__ == '__main__':
